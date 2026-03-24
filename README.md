@@ -6,7 +6,27 @@ AWS Identity Center(SSO) Permission Set CLI
 
 ## 설치
 
+### pip / pipx (추천)
+
 ```bash
+pip install awsps
+
+# 또는 pipx (격리된 환경에 설치)
+pipx install awsps
+```
+
+### Homebrew
+
+```bash
+brew tap boseung-code/tap
+brew install awsps
+```
+
+### 소스에서 설치
+
+```bash
+git clone https://github.com/boseung-code/awsps.git
+cd awsps
 pip install -e .
 ```
 
