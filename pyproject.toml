@@ -1,0 +1,17 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "awsps"
+version = "0.1.0"
+description = "AWS Identity Center Permission Set CLI - 임시 자격증명을 인터랙티브하게 선택하여 쉘에 주입"
+requires-python = ">=3.10"
+dependencies = [
+    "boto3",
+    "click",
+    "pzp",
+]
+
+[project.scripts]
+awsps = "awsps.cli:main"
