@@ -28,8 +28,8 @@ def login(start_url: str, region: str) -> str:
     interval = device_auth.get("interval", 5)
     expires_in = device_auth["expiresIn"]
 
-    print(f"\n브라우저에서 인증을 진행하세요.", file=sys.stderr)
-    print(f"인증 코드: {user_code}", file=sys.stderr)
+    print(f"\nPlease authenticate in your browser.", file=sys.stderr)
+    print(f"Code: {user_code}", file=sys.stderr)
     print(f"URL: {verification_uri}\n", file=sys.stderr)
 
     webbrowser.open(verification_uri)
@@ -65,4 +65,4 @@ def _poll_for_token(
             else:
                 raise
 
-    raise TimeoutError("인증 시간이 초과되었습니다. 다시 시도하세요.")
+    raise TimeoutError("Authentication timed out. Please try again.")

@@ -49,6 +49,6 @@ def _load_config_file() -> dict:
 def click_missing_start_url():
     import click
     return click.ClickException(
-        "start-url이 필요합니다. --start-url 플래그, AWSPSS_START_URL 환경변수, "
-        "또는 'awspss configure'로 설정하세요."
+        "start-url is required. Use --start-url flag, AWSPSS_START_URL env var, "
+        "or run 'awspss configure'."
     )
