@@ -98,11 +98,16 @@ def switch_internal(start_url, region):
 
 
 @main.command()
-@click.option("--start-url", required=True, help="AWS Identity Center 시작 URL")
-@click.option("--region", default="us-east-1", help="AWS 리전 (기본값: us-east-1)")
+@click.option("--start-url", default=None, help="AWS Identity Center 시작 URL")
+@click.option("--region", default=None, help="AWS 리전")
 def configure(start_url, region):
     """AWS Identity Center 설정을 저장합니다."""
+    if not start_url:
+        start_url = click.prompt("AWS Identity Center 시작 URL", type=str)
+    if not region:
+        region = click.prompt("AWS 리전", default="us-east-1", type=str)
+
     config.save_config(start_url, region)
-    click.echo(f"설정 저장 완료: {config.CONFIG_FILE}")
+    click.echo(f"\n설정 저장 완료: {config.CONFIG_FILE}")
     click.echo(f"  start_url: {start_url}")
     click.echo(f"  region: {region}")
