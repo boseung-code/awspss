@@ -32,8 +32,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/boseung-code/awsps"
-Repository = "https://github.com/boseung-code/awsps"
+Homepage = "https://github.com/boseung-code/awspss"
+Repository = "https://github.com/boseung-code/awspss"
 
 [project.scripts]
 awspss = "awspss.cli:main"

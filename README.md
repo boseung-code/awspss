@@ -25,7 +25,7 @@ brew install awspss
 ### 소스에서 설치
 
 ```bash
-git clone https://github.com/boseung-code/awsps.git
+git clone https://github.com/boseung-code/awspss.git
 cd awsps
 pip install -e .
 ```
