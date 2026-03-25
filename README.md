@@ -37,27 +37,19 @@ pip install -e .
 `awspss login`과 `awspss sw`가 현재 쉘에 자격증명을 직접 설정하려면 shell 함수 등록이 필요합니다.
 
 ```bash
-awspss init
+eval "$(awspss init)"
 ```
 
-실행하면 현재 쉘에 맞는 rc 파일(`.bashrc` 또는 `.zshrc`)을 감지하고, 등록 여부를 물어봅니다:
+실행하면:
+1. 현재 쉘에 맞는 rc 파일(`.bashrc` 또는 `.zshrc`)을 감지
+2. 등록 여부를 물어봄 (`Y`로 확인)
+3. rc 파일에 자동 추가 + 현재 쉘에 즉시 적용
 
-```
-~/.zshrc에 shell 함수를 등록할까요? [Y/n]
-```
+이미 등록된 경우 중복 추가하지 않습니다. 새 터미널에서도 자동으로 활성화됩니다.
 
-`Y`를 입력하면 rc 파일에 자동 추가됩니다. 이후 적용:
+수동으로 등록하려면 `.bashrc` 또는 `.zshrc`에 직접 추가:
 
 ```bash
-source ~/.zshrc   # 또는 source ~/.bashrc
-```
-
-이미 등록된 경우 중복 추가하지 않습니다.
-
-수동으로 등록하려면:
-
-```bash
-# .bashrc 또는 .zshrc에 직접 추가
 eval "$(awspss init --print)"
 ```
 
@@ -81,7 +73,7 @@ awspss configure --start-url https://your-org.awsapps.com/start --region ap-nort
 awspss login
 ```
 
-브라우저에서 SSO 인증 후, Account → Permission Set을 선택합니다. 자격증명이 현재 쉘에 자동 설정됩니다.
+항상 브라우저에서 SSO 재인증을 수행합니다. 인증 후 Account → Permission Set을 선택하면 자격증명이 현재 쉘에 설정됩니다.
 
 ### 자격증명 전환
 
@@ -89,7 +81,7 @@ awspss login
 awspss sw
 ```
 
-재로그인 없이 다른 Account/Permission Set으로 전환합니다.
+캐시된 토큰을 사용하여 재로그인 없이 다른 Account/Permission Set으로 전환합니다. 토큰이 만료된 경우 자동으로 재로그인합니다.
 
 ### eval 방식 (shell 함수 미등록 시)
 
@@ -116,8 +108,8 @@ unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 
 | 명령어 | 설명 |
 |---|---|
-| `awspss init` | Shell 함수 등록 (rc 파일에 자동 추가) |
+| `awspss init` | Shell 함수 등록 (rc 파일 자동 추가 + 즉시 적용) |
 | `awspss init --print` | Shell 함수 출력만 (수동 등록용) |
 | `awspss configure` | SSO 접속 정보 설정 |
-| `awspss login` | SSO 로그인 + 자격증명 발급 |
-| `awspss sw` | 자격증명 전환 (재로그인 없음) |
+| `awspss login` | SSO 로그인 + 자격증명 발급 (항상 재인증) |
+| `awspss sw` | 자격증명 전환 (캐시된 토큰 사용) |

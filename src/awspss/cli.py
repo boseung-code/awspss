@@ -60,20 +60,18 @@ def init(print_only):
     rc_file = _get_rc_file()
 
     if _is_already_registered(rc_file):
-        click.echo(f"이미 {rc_file}에 등록되어 있습니다.")
-        click.echo("현재 쉘에 적용하려면: source " + str(rc_file))
+        click.echo(f"이미 {rc_file}에 등록되어 있습니다.", err=True)
+    elif click.confirm(f"{rc_file}에 shell 함수를 등록할까요?", default=True, err=True):
+        with open(rc_file, "a") as f:
+            f.write(f"\n# awspss - AWS SSO 자격증명 전환\n{INIT_LINE}\n")
+        click.echo(f"{rc_file}에 등록 완료.", err=True)
+    else:
+        click.echo("취소되었습니다.", err=True)
+        click.echo(f"수동으로 추가하려면: {INIT_LINE}", err=True)
         return
 
-    if not click.confirm(f"{rc_file}에 shell 함수를 등록할까요?", default=True):
-        click.echo("취소되었습니다.")
-        click.echo(f'수동으로 추가하려면: {INIT_LINE}')
-        return
-
-    with open(rc_file, "a") as f:
-        f.write(f"\n# awspss - AWS SSO 자격증명 전환\n{INIT_LINE}\n")
-
-    click.echo(f"{rc_file}에 등록 완료.")
-    click.echo("현재 쉘에 적용하려면: source " + str(rc_file))
+    # shell 함수를 stdout에 출력하여 현재 쉘에 즉시 적용
+    print(SHELL_FUNCTION)
 
 
 def _get_token(cfg: config.Config) -> str:
@@ -114,9 +112,14 @@ def _select_and_print_credentials(access_token: str, cfg: config.Config):
 @click.option("--start-url", default=None, help="SSO 시작 URL")
 @click.option("--region", default=None, help="AWS 리전")
 def login(start_url, region):
-    """SSO 로그인 + 자격증명 발급"""
+    """SSO 로그인 + 자격증명 발급 (항상 재인증)"""
     cfg = config.load_config(start_url, region)
-    access_token = _get_token(cfg)
+
+    print("SSO 로그인을 시작합니다...", file=sys.stderr)
+    access_token, expires_in = auth.login(cfg.start_url, cfg.region)
+    cache.save_token(access_token, expires_in, cfg.start_url)
+    print("로그인 성공!\n", file=sys.stderr)
+
     _select_and_print_credentials(access_token, cfg)
 
 
@@ -124,14 +127,9 @@ def login(start_url, region):
 @click.option("--start-url", default=None, help="SSO 시작 URL")
 @click.option("--region", default=None, help="AWS 리전")
 def sw(start_url, region):
-    """자격증명 전환 (재로그인 없음)"""
+    """자격증명 전환 (캐시된 토큰 사용)"""
     cfg = config.load_config(start_url, region)
-    access_token = cache.load_token(cfg.start_url)
-
-    if not access_token:
-        print("캐시된 토큰이 없습니다. 먼저 awspss login을 실행하세요.", file=sys.stderr)
-        raise SystemExit(1)
-
+    access_token = _get_token(cfg)
     _select_and_print_credentials(access_token, cfg)
 
 
