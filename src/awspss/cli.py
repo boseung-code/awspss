@@ -26,6 +26,11 @@ awspss() {
       ;;
   esac
 }
+if [ -n "$ZSH_VERSION" ]; then
+  eval "$(_AWSPSS_COMPLETE=zsh_source command awspss)"
+elif [ -n "$BASH_VERSION" ]; then
+  eval "$(_AWSPSS_COMPLETE=bash_source command awspss)"
+fi
 """
 
 INIT_LINE = 'eval "$(awspss init --print)"'
