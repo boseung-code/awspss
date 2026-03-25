@@ -1,4 +1,6 @@
+import os
 import sys
+from pathlib import Path
 
 import click
 
@@ -25,6 +27,21 @@ awspss() {
 }
 """
 
+INIT_LINE = 'eval "$(awspss init --print)"'
+
+
+def _get_rc_file() -> Path:
+    shell = os.environ.get("SHELL", "")
+    if "zsh" in shell:
+        return Path.home() / ".zshrc"
+    return Path.home() / ".bashrc"
+
+
+def _is_already_registered(rc_file: Path) -> bool:
+    if not rc_file.exists():
+        return False
+    return "awspss init" in rc_file.read_text()
+
 
 @click.group()
 def main():
@@ -33,9 +50,30 @@ def main():
 
 
 @main.command()
-def init():
-    """Shell 함수 출력"""
-    print(SHELL_FUNCTION)
+@click.option("--print", "print_only", is_flag=True, help="Shell 함수만 출력")
+def init(print_only):
+    """Shell 함수 등록"""
+    if print_only:
+        print(SHELL_FUNCTION)
+        return
+
+    rc_file = _get_rc_file()
+
+    if _is_already_registered(rc_file):
+        click.echo(f"이미 {rc_file}에 등록되어 있습니다.")
+        click.echo("현재 쉘에 적용하려면: source " + str(rc_file))
+        return
+
+    if not click.confirm(f"{rc_file}에 shell 함수를 등록할까요?", default=True):
+        click.echo("취소되었습니다.")
+        click.echo(f'수동으로 추가하려면: {INIT_LINE}')
+        return
+
+    with open(rc_file, "a") as f:
+        f.write(f"\n# awspss - AWS SSO 자격증명 전환\n{INIT_LINE}\n")
+
+    click.echo(f"{rc_file}에 등록 완료.")
+    click.echo("현재 쉘에 적용하려면: source " + str(rc_file))
 
 
 def _get_token(cfg: config.Config) -> str:
