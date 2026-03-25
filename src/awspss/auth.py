@@ -10,7 +10,7 @@ def login(start_url: str, region: str) -> str:
     oidc = boto3.client("sso-oidc", region_name=region)
 
     client_info = oidc.register_client(
-        clientName="awsps",
+        clientName="awspss",
         clientType="public",
     )
     client_id = client_info["clientId"]

@@ -2,14 +2,14 @@ import sys
 
 import click
 
-from awsps import auth, cache, config, selector, sso
+from awspss import auth, cache, config, selector, sso
 
 SHELL_FUNCTION = """\
-awsps() {
+awspss() {
   case "$1" in
     login|sw)
       local _out
-      _out="$(command awsps _"$1" "${@:2}")"
+      _out="$(command awspss _"$1" "${@:2}")"
       local _rc=$?
       if [ $_rc -eq 0 ]; then
         eval "$_out"
@@ -19,7 +19,7 @@ awsps() {
       return $_rc
       ;;
     *)
-      command awsps "$@"
+      command awspss "$@"
       ;;
   esac
 }
@@ -28,13 +28,13 @@ awsps() {
 
 @click.group()
 def main():
-    """AWS Identity Center Permission Set CLI"""
+    """AWS Identity Center Permission Sets Switcher"""
     pass
 
 
 @main.command()
 def init():
-    """Shell 함수를 출력합니다. .bashrc/.zshrc에 eval "$(awsps init)"을 추가하세요."""
+    """Shell 함수를 출력합니다. .bashrc/.zshrc에 eval "$(awspss init)"을 추가하세요."""
     print(SHELL_FUNCTION)
 
 
@@ -91,7 +91,7 @@ def switch_internal(start_url, region):
     access_token = cache.load_token(cfg.start_url)
 
     if not access_token:
-        print("캐시된 토큰이 없습니다. 먼저 awsps login을 실행하세요.", file=sys.stderr)
+        print("캐시된 토큰이 없습니다. 먼저 awspss login을 실행하세요.", file=sys.stderr)
         raise SystemExit(1)
 
     _select_and_print_credentials(access_token, cfg)

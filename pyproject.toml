@@ -3,11 +3,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "awsps"
+name = "awspss"
 version = "0.1.0"
-description = "AWS Identity Center Permission Set CLI - 임시 자격증명을 인터랙티브하게 선택하여 쉘에 주입"
+description = "AWS Identity Center Permission Sets Switcher"
 readme = "README.md"
-license = "MIT"
+license = {text = "MIT"}
 requires-python = ">=3.10"
 authors = [
     { name = "boseung-code" },
@@ -36,4 +36,10 @@ Homepage = "https://github.com/boseung-code/awsps"
 Repository = "https://github.com/boseung-code/awsps"
 
 [project.scripts]
-awsps = "awsps.cli:main"
+awspss = "awspss.cli:main"
+
+[tool.hatch.build.targets.sdist]
+include = ["src/awspss"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/awspss"]

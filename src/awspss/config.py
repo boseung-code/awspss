@@ -3,7 +3,7 @@ import os
 from dataclasses import dataclass
 from pathlib import Path
 
-CONFIG_DIR = Path.home() / ".awsps"
+CONFIG_DIR = Path.home() / ".awspss"
 CONFIG_FILE = CONFIG_DIR / "config.json"
 
 
@@ -18,12 +18,12 @@ def load_config(start_url: str | None = None, region: str | None = None) -> Conf
 
     resolved_start_url = (
         start_url
-        or os.environ.get("AWSPS_START_URL")
+        or os.environ.get("AWSPSS_START_URL")
         or file_config.get("start_url")
     )
     resolved_region = (
         region
-        or os.environ.get("AWSPS_REGION")
+        or os.environ.get("AWSPSS_REGION")
         or file_config.get("region")
         or "us-east-1"
     )
@@ -49,6 +49,6 @@ def _load_config_file() -> dict:
 def click_missing_start_url():
     import click
     return click.ClickException(
-        "start-url이 필요합니다. --start-url 플래그, AWSPS_START_URL 환경변수, "
-        "또는 'awsps configure'로 설정하세요."
+        "start-url이 필요합니다. --start-url 플래그, AWSPSS_START_URL 환경변수, "
+        "또는 'awspss configure'로 설정하세요."
     )

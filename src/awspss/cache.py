@@ -4,7 +4,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-CACHE_DIR = Path.home() / ".awsps" / "cache"
+CACHE_DIR = Path.home() / ".awspss" / "cache"
 TOKEN_FILE = CACHE_DIR / "token.json"
 
 EXPIRY_MARGIN_SECONDS = 300  # 5분 여유
