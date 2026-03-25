@@ -18,6 +18,9 @@ def select_account(accounts: list[dict]) -> dict:
             height=15,
         )
     except (AbortAction, PZPException, KeyboardInterrupt):
+        selected = None
+
+    if selected is None:
         print("선택이 취소되었습니다.", file=sys.stderr)
         raise SystemExit(1)
 
@@ -43,6 +46,9 @@ def select_role(roles: list[dict], account_name: str) -> dict:
             height=15,
         )
     except (AbortAction, PZPException, KeyboardInterrupt):
+        selected = None
+
+    if selected is None:
         print("선택이 취소되었습니다.", file=sys.stderr)
         raise SystemExit(1)
 
