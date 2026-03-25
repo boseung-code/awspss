@@ -3,24 +3,28 @@ import time
 import webbrowser
 
 import boto3
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, BotoCoreError
 
 
 def login(start_url: str, region: str) -> str:
-    oidc = boto3.client("sso-oidc", region_name=region)
+    try:
+        oidc = boto3.client("sso-oidc", region_name=region)
 
-    client_info = oidc.register_client(
-        clientName="awspss",
-        clientType="public",
-    )
-    client_id = client_info["clientId"]
-    client_secret = client_info["clientSecret"]
+        client_info = oidc.register_client(
+            clientName="awspss",
+            clientType="public",
+        )
+        client_id = client_info["clientId"]
+        client_secret = client_info["clientSecret"]
 
-    device_auth = oidc.start_device_authorization(
-        clientId=client_id,
-        clientSecret=client_secret,
-        startUrl=start_url,
-    )
+        device_auth = oidc.start_device_authorization(
+            clientId=client_id,
+            clientSecret=client_secret,
+            startUrl=start_url,
+        )
+    except (ClientError, BotoCoreError) as e:
+        print(f"Error: SSO login failed - {e}", file=sys.stderr)
+        raise SystemExit(1)
 
     verification_uri = device_auth["verificationUriComplete"]
     user_code = device_auth["userCode"]

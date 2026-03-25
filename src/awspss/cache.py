@@ -48,3 +48,28 @@ def save_token(access_token: str, expires_in: int, start_url: str) -> None:
 
     TOKEN_FILE.write_text(json.dumps(data, indent=2))
     os.chmod(TOKEN_FILE, 0o600)
+
+
+def delete_token() -> bool:
+    if TOKEN_FILE.exists():
+        TOKEN_FILE.unlink()
+        return True
+    return False
+
+
+LAST_ACCOUNT_FILE = CACHE_DIR / "last_account.json"
+
+
+def save_last_account(account_id: str, account_name: str) -> None:
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    data = {"accountId": account_id, "accountName": account_name}
+    LAST_ACCOUNT_FILE.write_text(json.dumps(data, indent=2))
+
+
+def load_last_account() -> dict | None:
+    if not LAST_ACCOUNT_FILE.exists():
+        return None
+    try:
+        return json.loads(LAST_ACCOUNT_FILE.read_text())
+    except (json.JSONDecodeError, OSError):
+        return None
