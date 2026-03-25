@@ -107,7 +107,7 @@ terraform plan
 ### Clear credentials
 
 ```bash
-unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+awspss unset
 ```
 
 ## Commands
@@ -119,3 +119,4 @@ unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 | `awspss configure` | Configure SSO connection |
 | `awspss login` | SSO login (always re-authenticates) |
 | `awspss sw` | Switch account/permission set (uses cached token) |
+| `awspss unset` | Clear AWS credentials from current shell |

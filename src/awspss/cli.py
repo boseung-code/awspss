@@ -9,7 +9,7 @@ from awspss import auth, cache, config, selector, sso
 SHELL_FUNCTION = """\
 awspss() {
   case "$1" in
-    login|sw)
+    login|sw|unset)
       local _out
       _out="$(command awspss "$@")"
       local _rc=$?
@@ -131,6 +131,13 @@ def sw(start_url, region):
     cfg = config.load_config(start_url, region)
     access_token = _get_token(cfg)
     _select_and_print_credentials(access_token, cfg)
+
+
+@main.command()
+def unset():
+    """Clear AWS credentials from current shell"""
+    print("unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN")
+    print("Credentials cleared.", file=sys.stderr)
 
 
 @main.command()

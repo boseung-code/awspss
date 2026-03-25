@@ -107,7 +107,7 @@ terraform plan
 ### 자격증명 해제
 
 ```bash
-unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+awspss unset
 ```
 
 ## 명령어
@@ -119,3 +119,4 @@ unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
 | `awspss configure` | SSO 접속 정보 설정 |
 | `awspss login` | SSO 로그인 (항상 재인증) |
 | `awspss sw` | 계정/Permission Set 전환 (캐시된 토큰 사용) |
+| `awspss unset` | 현재 쉘의 AWS 자격증명 해제 |
