@@ -70,8 +70,9 @@ def init(print_only):
         click.echo(f"수동으로 추가하려면: {INIT_LINE}", err=True)
         return
 
-    # shell 함수를 stdout에 출력하여 현재 쉘에 즉시 적용
-    print(SHELL_FUNCTION)
+    # stdout이 파이프(eval)인 경우에만 shell 함수 출력
+    if not sys.stdout.isatty():
+        print(SHELL_FUNCTION)
 
 
 def _get_token(cfg: config.Config) -> str:

@@ -1,7 +1,7 @@
 import sys
 
 from pzp import pzp
-from pzp.exceptions import AbortAction
+from pzp.exceptions import AbortAction, PZPException
 
 
 def select_account(accounts: list[dict]) -> dict:
@@ -17,7 +17,7 @@ def select_account(accounts: list[dict]) -> dict:
             fullscreen=False,
             height=15,
         )
-    except AbortAction:
+    except (AbortAction, PZPException, KeyboardInterrupt):
         print("선택이 취소되었습니다.", file=sys.stderr)
         raise SystemExit(1)
 
@@ -42,7 +42,7 @@ def select_role(roles: list[dict], account_name: str) -> dict:
             fullscreen=False,
             height=15,
         )
-    except AbortAction:
+    except (AbortAction, PZPException, KeyboardInterrupt):
         print("선택이 취소되었습니다.", file=sys.stderr)
         raise SystemExit(1)
 
