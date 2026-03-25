@@ -40,7 +40,7 @@ pip install -e .
 
 ### 1. Register shell function
 
-Shell function registration is required for `awspss login` and `awspss sw` to set credentials directly in your current shell.
+Shell function registration is required for `awspss login` and `awspss sw` to set credentials directly in your current shell. This also enables Tab completion for commands.
 
 ```bash
 eval "$(awspss init)"
@@ -79,7 +79,7 @@ awspss configure --start-url https://your-org.awsapps.com/start --region ap-nort
 awspss login
 ```
 
-Always performs a fresh SSO authentication via browser. After authentication, select Account → Permission Set and credentials are set in your current shell.
+Always performs a fresh SSO authentication via browser. After authentication, select Account → Permission Set and credentials are set in your current shell. Credential expiration time is displayed after login.
 
 ### Switch credentials
 
@@ -88,6 +88,22 @@ awspss sw
 ```
 
 Switch to a different Account/Permission Set using cached token (no re-login). Automatically re-authenticates if the token has expired.
+
+### Quick switch (permission set only)
+
+```bash
+awspss sw AdministratorAccess
+```
+
+Switch to a different Permission Set within the same account without interactive selection. Tab completion is supported — press Tab after `awspss sw ` to see available permission sets.
+
+### Check current identity
+
+```bash
+awspss whoami
+```
+
+Displays the current AWS identity (Account, ARN, UserId).
 
 ### Without shell function (eval)
 
@@ -110,6 +126,14 @@ terraform plan
 awspss unset
 ```
 
+### Logout (clear cached token)
+
+```bash
+awspss logout
+```
+
+Removes the cached SSO token. Use this when you want to force a fresh login next time.
+
 ## Commands
 
 | Command | Description |
@@ -119,4 +143,7 @@ awspss unset
 | `awspss configure` | Configure SSO connection |
 | `awspss login` | SSO login (always re-authenticates) |
 | `awspss sw` | Switch account/permission set (uses cached token) |
+| `awspss sw [ROLE]` | Quick switch permission set (Tab completion supported) |
+| `awspss whoami` | Show current AWS identity |
 | `awspss unset` | Clear AWS credentials from current shell |
+| `awspss logout` | Clear cached SSO token |
