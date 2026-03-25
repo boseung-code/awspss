@@ -6,6 +6,10 @@ AWS Identity Center Permission Sets Switcher
 
 브라우저로 SSO 로그인 후, Account와 Permission Set을 인터랙티브하게 선택하면 임시 자격증명이 현재 쉘에 설정됩니다.
 
+<p align="center">
+  <img src="demo.svg" alt="awspss demo" width="620">
+</p>
+
 ## 설치
 
 ### pip / pipx

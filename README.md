@@ -6,6 +6,10 @@ AWS Identity Center Permission Sets Switcher
 
 Interactively select an AWS Account and Permission Set after SSO login, and the temporary credentials are automatically set in your current shell.
 
+<p align="center">
+  <img src="docs/demo.svg" alt="awspss demo" width="620">
+</p>
+
 ## Installation
 
 ### pip / pipx
