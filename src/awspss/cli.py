@@ -9,7 +9,7 @@ awspss() {
   case "$1" in
     login|sw)
       local _out
-      _out="$(command awspss _"$1" "${@:2}")"
+      _out="$(command awspss "$@")"
       local _rc=$?
       if [ $_rc -eq 0 ]; then
         eval "$_out"
@@ -28,13 +28,13 @@ awspss() {
 
 @click.group()
 def main():
-    """AWS Identity Center Permission Sets Switcher"""
+    """AWS SSO 자격증명 전환 CLI"""
     pass
 
 
 @main.command()
 def init():
-    """Shell 함수를 출력합니다. .bashrc/.zshrc에 eval "$(awspss init)"을 추가하세요."""
+    """Shell 함수 출력"""
     print(SHELL_FUNCTION)
 
 
@@ -72,21 +72,21 @@ def _select_and_print_credentials(access_token: str, cfg: config.Config):
     print(f"\n자격증명이 설정되었습니다.", file=sys.stderr)
 
 
-@main.command(name="_login")
-@click.option("--start-url", default=None, help="AWS Identity Center 시작 URL")
+@main.command()
+@click.option("--start-url", default=None, help="SSO 시작 URL")
 @click.option("--region", default=None, help="AWS 리전")
-def login_internal(start_url, region):
-    """SSO 로그인 후 Account/Permission Set을 선택하여 자격증명을 출력합니다."""
+def login(start_url, region):
+    """SSO 로그인 + 자격증명 발급"""
     cfg = config.load_config(start_url, region)
     access_token = _get_token(cfg)
     _select_and_print_credentials(access_token, cfg)
 
 
-@main.command(name="_sw")
-@click.option("--start-url", default=None, help="AWS Identity Center 시작 URL")
+@main.command()
+@click.option("--start-url", default=None, help="SSO 시작 URL")
 @click.option("--region", default=None, help="AWS 리전")
-def switch_internal(start_url, region):
-    """Account/Permission Set을 재선택하여 자격증명을 전환합니다."""
+def sw(start_url, region):
+    """자격증명 전환 (재로그인 없음)"""
     cfg = config.load_config(start_url, region)
     access_token = cache.load_token(cfg.start_url)
 
@@ -98,10 +98,10 @@ def switch_internal(start_url, region):
 
 
 @main.command()
-@click.option("--start-url", default=None, help="AWS Identity Center 시작 URL")
+@click.option("--start-url", default=None, help="SSO 시작 URL")
 @click.option("--region", default=None, help="AWS 리전")
 def configure(start_url, region):
-    """AWS Identity Center 설정을 저장합니다."""
+    """SSO 접속 정보 설정"""
     if not start_url:
         start_url = click.prompt("AWS Identity Center 시작 URL", type=str)
     if not region:

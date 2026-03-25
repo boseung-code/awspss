@@ -6,12 +6,12 @@ AWS Identity Center Permission Sets Switcher
 
 ## 설치
 
-### pip / pipx (추천)
+### pip / pipx
 
 ```bash
 pip install awspss
 
-# 또는 pipx (격리된 환경에 설치)
+# 또는 pipx (격리 환경 설치)
 pipx install awspss
 ```
 
@@ -26,11 +26,21 @@ brew install awspss
 
 ```bash
 git clone https://github.com/boseung-code/awspss.git
-cd awsps
+cd awspss
 pip install -e .
 ```
 
-## 초기 설정
+## 설정
+
+### 방법 1: 인터랙티브
+
+```bash
+awspss configure
+```
+
+start-url과 region을 순서대로 물어봅니다.
+
+### 방법 2: 직접 입력
 
 ```bash
 awspss configure --start-url https://your-org.awsapps.com/start --region ap-northeast-2
@@ -38,7 +48,7 @@ awspss configure --start-url https://your-org.awsapps.com/start --region ap-nort
 
 ## 사용법
 
-### 방법 1: Shell 함수 등록 (추천)
+### Shell 함수 등록 (추천)
 
 `.bashrc` 또는 `.zshrc`에 아래 한 줄을 추가합니다:
 
@@ -46,45 +56,38 @@ awspss configure --start-url https://your-org.awsapps.com/start --region ap-nort
 eval "$(awspss init)"
 ```
 
-이후 쉘을 새로 열거나 `source ~/.bashrc`를 실행하면, 다음 명령어를 바로 사용할 수 있습니다:
+쉘을 새로 열거나 `source ~/.bashrc` 후 사용:
 
 ```bash
 # SSO 로그인 + Account/Permission Set 선택
 awspss login
 
-# Account/Permission Set 재선택 (재로그인 없이)
+# 다른 Account/Permission Set으로 전환 (재로그인 없음)
 awspss sw
 ```
 
-### 방법 2: eval 직접 사용
+### eval 방식
 
-Shell 함수를 등록하지 않고도 사용할 수 있습니다:
+Shell 함수 등록 없이도 사용할 수 있습니다:
 
 ```bash
-# SSO 로그인 + Account/Permission Set 선택
-eval $(awspss _login)
-
-# Account/Permission Set 재선택
-eval $(awspss _sw)
+eval $(awspss login)
+eval $(awspss sw)
 ```
 
-## 사용 후
-
-자격증명이 설정된 상태에서 AWS CLI, Terraform 등을 바로 사용할 수 있습니다:
+### 자격증명 확인
 
 ```bash
-aws s3 ls
 aws sts get-caller-identity
+aws s3 ls
 terraform plan
 ```
 
-## 명령어 요약
+## 명령어
 
 | 명령어 | 설명 |
 |---|---|
-| `awspss configure` | SSO 시작 URL, 리전 설정 저장 |
-| `awspss login` | SSO 로그인 + 자격증명 선택 (Shell 함수 필요) |
-| `awspss sw` | Account/Permission Set 재선택 (Shell 함수 필요) |
+| `awspss configure` | SSO 접속 정보 설정 |
+| `awspss login` | SSO 로그인 + 자격증명 발급 |
+| `awspss sw` | 자격증명 전환 (재로그인 없음) |
 | `awspss init` | Shell 함수 출력 |
-| `awspss _login` | login 내부 명령 (eval과 함께 사용) |
-| `awspss _sw` | sw 내부 명령 (eval과 함께 사용) |
