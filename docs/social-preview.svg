@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e1e2e"/>
+      <stop offset="100%" style="stop-color:#181825"/>
+    </linearGradient>
+    <style>
+      text {
+        font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', Menlo, Consolas, monospace;
+      }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" rx="0" fill="url(#bg)"/>
+
+  <!-- Subtle grid pattern -->
+  <g opacity="0.03">
+    <line x1="0" y1="80" x2="1280" y2="80" stroke="#cdd6f4" stroke-width="1"/>
+    <line x1="0" y1="160" x2="1280" y2="160" stroke="#cdd6f4" stroke-width="1"/>
+    <line x1="0" y1="240" x2="1280" y2="240" stroke="#cdd6f4" stroke-width="1"/>
+    <line x1="0" y1="320" x2="1280" y2="320" stroke="#cdd6f4" stroke-width="1"/>
+    <line x1="0" y1="400" x2="1280" y2="400" stroke="#cdd6f4" stroke-width="1"/>
+    <line x1="0" y1="480" x2="1280" y2="480" stroke="#cdd6f4" stroke-width="1"/>
+    <line x1="0" y1="560" x2="1280" y2="560" stroke="#cdd6f4" stroke-width="1"/>
+  </g>
+
+  <!-- Terminal window -->
+  <rect x="640" y="120" width="560" height="400" rx="10" fill="#11111b" stroke="#313244" stroke-width="1"/>
+  <rect x="640" y="120" width="560" height="30" rx="10" fill="#313244"/>
+  <rect x="640" y="140" width="560" height="10" fill="#313244"/>
+  <circle cx="660" cy="135" r="5" fill="#f38ba8"/>
+  <circle cx="678" cy="135" r="5" fill="#f9e2af"/>
+  <circle cx="696" cy="135" r="5" fill="#a6e3a1"/>
+
+  <!-- Terminal content -->
+  <text x="660" y="175" fill="#89b4fa" font-size="13">$ </text><text x="676" y="175" fill="#cdd6f4" font-size="13">awspss sw</text>
+
+  <text x="660" y="205" fill="#89dceb" font-size="13" font-weight="bold">Select AWS Account:</text>
+  <text x="660" y="225" fill="#a6e3a1" font-size="13" font-weight="bold">&gt; production (111122223333)</text>
+  <text x="660" y="245" fill="#585b70" font-size="13">  staging (444455556666)</text>
+  <text x="660" y="265" fill="#585b70" font-size="13">  development (777788889999)</text>
+
+  <text x="660" y="295" fill="#89dceb" font-size="13" font-weight="bold">[production] Select Permission Set:</text>
+  <text x="660" y="315" fill="#a6e3a1" font-size="13" font-weight="bold">&gt; AdministratorAccess</text>
+  <text x="660" y="335" fill="#585b70" font-size="13">  ReadOnlyAccess</text>
+  <text x="660" y="355" fill="#585b70" font-size="13">  PowerUserAccess</text>
+
+  <text x="660" y="395" fill="#a6e3a1" font-size="13" font-weight="bold">Credentials set.</text>
+  <text x="660" y="415" fill="#585b70" font-size="13">Credentials expire at 18:30 KST.</text>
+
+  <text x="660" y="455" fill="#89b4fa" font-size="13">$ </text><text x="676" y="455" fill="#cdd6f4" font-size="13">awspss whoami</text>
+  <text x="660" y="475" fill="#cdd6f4" font-size="13">Account:  111122223333</text>
+  <text x="660" y="495" fill="#cdd6f4" font-size="13">Arn:      arn:aws:sts::...assumed-role/SSO_Admin/user</text>
+
+  <!-- Left side - branding -->
+  <text x="80" y="230" fill="#cdd6f4" font-size="56" font-weight="bold" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">awspss</text>
+
+  <text x="80" y="275" fill="#6c7086" font-size="18" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">AWS Identity Center</text>
+  <text x="80" y="300" fill="#6c7086" font-size="18" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">Permission Sets Switcher</text>
+
+  <!-- Feature pills -->
+  <rect x="80" y="340" width="120" height="28" rx="14" fill="#313244"/>
+  <text x="140" y="359" fill="#89b4fa" font-size="12" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">SSO Login</text>
+
+  <rect x="210" y="340" width="140" height="28" rx="14" fill="#313244"/>
+  <text x="280" y="359" fill="#a6e3a1" font-size="12" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">Fuzzy Search</text>
+
+  <rect x="360" y="340" width="160" height="28" rx="14" fill="#313244"/>
+  <text x="440" y="359" fill="#f9e2af" font-size="12" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">Tab Completion</text>
+
+  <rect x="80" y="378" width="150" height="28" rx="14" fill="#313244"/>
+  <text x="155" y="397" fill="#f38ba8" font-size="12" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">Quick Switch</text>
+
+  <rect x="240" y="378" width="120" height="28" rx="14" fill="#313244"/>
+  <text x="300" y="397" fill="#89dceb" font-size="12" text-anchor="middle" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">Shell Eval</text>
+
+  <!-- Install command -->
+  <rect x="80" y="440" width="300" height="36" rx="8" fill="#11111b" stroke="#313244" stroke-width="1"/>
+  <text x="96" y="463" fill="#89b4fa" font-size="14">$ </text><text x="112" y="463" fill="#cdd6f4" font-size="14">pip install awspss</text>
+
+  <!-- Version badge -->
+  <text x="80" y="520" fill="#585b70" font-size="13" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif">v0.3.0 | Python 3.10+ | MIT License</text>
+</svg>
