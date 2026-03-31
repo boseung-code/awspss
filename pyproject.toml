@@ -38,6 +38,9 @@ Repository = "https://github.com/boseung-code/awspss"
 [project.scripts]
 awspss = "awspss.cli:main"
 
+[project.optional-dependencies]
+dev = ["pytest"]
+
 [tool.hatch.build.targets.sdist]
 include = ["src/awspss"]
 

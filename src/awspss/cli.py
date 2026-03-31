@@ -50,6 +50,7 @@ def _is_already_registered(rc_file: Path) -> bool:
 
 
 @click.group()
+@click.version_option(package_name="awspss")
 def main():
     """AWS Identity Center Permission Sets Switcher"""
     pass
