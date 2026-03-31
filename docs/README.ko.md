@@ -5,7 +5,7 @@
 **AWS Identity Center Permission Sets Switcher**
 
 [![PyPI version](https://img.shields.io/pypi/v/awspss.svg)](https://pypi.org/project/awspss/)
-[![Python](https://img.shields.io/pypi/pyversions/awspss.svg)](https://pypi.org/project/awspss/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://pypi.org/project/awspss/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 브라우저로 SSO 로그인 후, Account와 Permission Set을 인터랙티브하게 선택하면

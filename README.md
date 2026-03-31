@@ -5,7 +5,7 @@
 **AWS Identity Center Permission Sets Switcher**
 
 [![PyPI version](https://img.shields.io/pypi/v/awspss.svg)](https://pypi.org/project/awspss/)
-[![Python](https://img.shields.io/pypi/pyversions/awspss.svg)](https://pypi.org/project/awspss/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://pypi.org/project/awspss/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Interactively select an AWS Account and Permission Set after SSO login,
